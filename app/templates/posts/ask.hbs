@@ -1,0 +1,30 @@
+<div class="container pt-5">
+  <div class="row justify-content-center">
+    <div class="col-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center">Ask a question</h5>
+          <div class="ask_questions_form">
+            <label>Title</label>
+              {{input value=title class="form-control"}}
+            <br/>
+
+            <label>Description</label>
+            {{textarea value=body class="form-control"}}
+            <br/>
+
+            <label>Tags</label>
+            {{input value=tags class="form-control"}}
+            <br/>
+
+            <button onclick={{action 'save'}} class="btn btn-success">Post a question</button>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#each flashMessages.queue as |flash|}}
+  {{flash-message flash=flash class='error-message'}}
+{{/each}}

@@ -1,0 +1,27 @@
+<div class="container pt-5">
+  <div class="card mb-5">
+    <div class="card-body">
+      <h5 class="card-title">Question</h5>
+      <p><b>{{title}}</b></p>
+      <p>{{body}}</p>
+
+      {{#if currentUser}}
+        <div><b>Answer</b></div>
+        <small>Body</small><br/>
+        {{textarea value=answer class="form-control col-5"}}<br/>
+        <button onclick={{action 'postAnAnswer'}}  class="btn btn-primary">POST AN ANSWER</button>
+      {{/if}}
+    </div>  
+  </div>
+
+  <h4>Answers</h4>
+  <ul class="list-group mb-5">
+    {{#each comments as |comment|}}
+      <li class="list-group-item">{{comment.description}}</li>
+    {{/each}}
+  </ul>
+
+  {{#each flashMessages.queue as |flash|}}
+    {{flash-message flash=flash class='error-message'}}
+  {{/each}}
+</div>

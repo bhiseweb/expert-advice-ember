@@ -1,0 +1,37 @@
+<div class="container pt-5">
+  <div class="card mb-5">
+    <div class="card-body">
+      <h5 class="card-title">Expert Advice</h5>      
+      <p class="card-text">Get an answer to difficult questions</p>      
+      {{input value=query class='form-control w-75 d-inline-block'}}
+      {{link-to 'ASK A QUESTION' 'posts.ask' class="btn btn-primary float-right"}}
+    </div>
+  </div>
+  <h3>Questions</h3>
+  <ul class="list-group questions_list mb-5">
+    {{#each model as |post|}}
+      {{posts/list-item 
+        post   = post
+        delete = (action 'delete')
+      }}
+    {{/each}}
+  </ul>
+
+  <div>
+    <nav aria-label="...">
+      <ul class="pagination pagination-sm">
+        {{#each count as |number|}}
+          {{#if (eq number model.meta.pagination.self.number) }}
+            <li class="page-item disabled">
+              {{link-to number "posts" (query-params page=number) class="page-link"}}
+            </li>
+          {{else}}
+            <li class="page-item">
+              {{link-to number "posts" (query-params page=number) class="page-link"}}
+            </li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </nav>
+  </div>
+</div>

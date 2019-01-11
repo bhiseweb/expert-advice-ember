@@ -1,0 +1,15 @@
+<li class="list-group-item">
+  {{#link-to "posts.show" post}}{{title}}{{/link-to}}
+  <div class="float-right">
+    {{#if isAccesseble}}
+      {{#link-to "posts.edit" post}}{{fa-icon "pencil"}}{{/link-to}}
+      <a {{action "delete"}}>{{fa-icon "trash"}}</a>
+    {{/if}}
+  </div>
+  <div>
+    {{#each tags as |tag|}}
+      <span class="badge badge-pill badge-primary">{{tag.name}}</span>
+    {{/each}}
+  </div>
+  <div class="clear"></div>
+</li>

@@ -23,10 +23,13 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
       return this._super(...arguments);
     }
   },
+
   handleResponse(status, headers, payload, requestData) {
     const total = headers["total"] || headers["Total"];
     const perPage = headers["per-page"] || headers["Per-Page"];
     let pages = null;
+    payload = payload || {};
+    payload.meta = payload.meta || {};
 
     if (isPresent(total) && isPresent(perPage)) {
       pages = Math.ceil(total / perPage);
@@ -40,6 +43,34 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
 
     payload.meta = meta;
 
+    if (payload.links) {
+      payload.meta.pagination = this.createPageMeta(payload.links);
+    }
+
     return this._super(status, headers, payload, requestData);
+  },
+
+  createPageMeta(data) {
+    let meta = {};
+    Object.keys(data).forEach(type => {
+      const link = data[type];
+      meta[type] = {};
+      let a = document.createElement('a');
+      a.href = link;
+
+      a.search.slice(1).split('&').forEach(pairs => {
+        const [param, value] = pairs.split('=');
+
+        if (param == 'page%5Bnumber%5D') {
+          meta[type].number = parseInt(value);
+        }
+        if (param == 'page%5Bsize%5D') {
+          meta[type].size = parseInt(value);
+        }
+
+      });
+      a = null;
+    });
+    return meta;
   }
 });

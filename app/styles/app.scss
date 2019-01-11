@@ -3,8 +3,37 @@
 
 body, .h-screen {
   height: 100vh;
+  margin-top: 60px;
 }
 
 .form-group.has-error input {
   border-color: #dc3545;
+}
+
+.questions_list {
+  .list-group-item {
+    border-bottom: none;
+    text-transform: capitalize;
+  }
+  >div{
+    &:last-child {
+      li {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+      }
+    }
+  }
+}
+
+.error-message {
+  position: fixed;
+  top: 4rem;
+  width: 95.5%;
+/*  display: block;
+  padding: 0.5rem;
+  margin: -1.6rem -1.4rem;
+
+  > i {
+    float: right;
+    margin-top: 0.25rem;
+  }*/
 }
